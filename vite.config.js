@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import path from "path";
+import legacy from "@vitejs/plugin-legacy";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -19,7 +20,11 @@ export default defineConfig({
   },
   optimizeDeps: {
     esbuildOptions: {
-      plugins: [esbuildCommonjs(["react-s3"])],
+      plugins: [
+        legacy({
+          targets: ["defaults", "not IE 11"],
+        }),
+      ],
     },
   },
 });
